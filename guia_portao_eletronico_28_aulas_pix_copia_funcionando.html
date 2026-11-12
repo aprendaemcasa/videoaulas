@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#123c7a"><title>Guia de Portão Eletrônico do Zero</title>
+<style>
+
+*{box-sizing:border-box}
+:root{--navy:#123c7a;--black:#050b13;--yellow:#ffb900;--blue:#1769df;--white:#fff;--muted:#aeb8c6}
+body{margin:0;background:var(--black);color:#fff;font-family:Arial,Helvetica,sans-serif;text-align:center}
+.topbar{height:23px;background:var(--navy);display:flex;align-items:center;justify-content:center}
+.logo{width:23px;height:17px;border:1px solid #e9ad00;background:#174b91;color:#fff;font-size:5px;font-weight:900;display:flex;align-items:center;justify-content:center;line-height:1}
+main{width:min(100% - 28px,1100px);max-width:1100px;margin:0 auto}
+.hero{padding:12px 0 0}
+.eyebrow{font-size:5px;color:#ffcf26;font-weight:900;letter-spacing:1px;margin-bottom:9px;text-transform:uppercase}
+h1{font-size:18px;line-height:1.08;font-weight:900;margin:0 auto 10px;max-width:225px}
+h1 span{color:#ffc000}
+.subline{font-size:5px;color:#aeb9c8;margin:0 auto 13px;max-width:210px}
+.pills{display:flex;justify-content:center;gap:5px;margin-bottom:12px}
+.pill{border:0;border-radius:20px;padding:5px 11px;font-size:5px;font-weight:900;color:#fff;background:#f5b900;box-shadow:0 2px 4px #0008}
+.pill.blue{background:#176ce7}
+.access-card{width:168px;margin:0 auto 19px;background:#111923;border:1px solid #1b2633;border-radius:7px;padding:9px 10px 8px;text-align:left;color:#eaf0f8}
+.access-title{text-align:center;color:#ffca28;font-size:6px;font-weight:900;margin-bottom:8px}
+.access-line{height:20px;background:#0b111a;border-radius:4px;margin:4px 0;display:flex;align-items:center;justify-content:space-between;padding:0 7px;font-size:5px;color:#aeb8c6}
+.access-line b{color:#ffc000;font-size:6px}
+.access-badge{display:block;margin:8px auto 0;background:#20241e;color:#ffc000;border-radius:4px;width:43px;padding:7px 2px;text-align:center;font-size:6px;font-weight:900}
+.progress{width:224px;margin:0 auto 18px;background:#111923;border:1px solid #202b38;border-radius:7px;padding:10px 9px 9px}
+.progress-title{font-size:6px;font-weight:900;color:#dce4ef}
+.progress-sub{font-size:4px;color:#8492a5;margin-top:2px}
+.percent{font-size:9px;color:#ffbf00;font-weight:900;margin:5px 0}
+.bar{height:4px;background:#070c12;border-radius:10px;overflow:hidden;margin-top:8px}
+.bar span{display:block;width:0;height:100%;background:#ffb900}
+.module{width:224px;margin:0 auto 23px}
+.module-dot{width:17px;height:17px;border-radius:50%;background:#ffbd00;color:#10151b;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;margin:0 auto 9px}
+.module h2{font-size:12px;line-height:1.1;margin:0 0 19px;font-weight:900;text-transform:uppercase}
+.lesson{margin:0 0 17px}
+.lesson-title{font-size:9px;font-weight:900;line-height:1.25;min-height:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;max-width:220px}
+.thumb{width:224px;height:126px;border-radius:5px;overflow:hidden;position:relative;margin:0 auto;background:linear-gradient(130deg,#06315e,#0872a6 45%,#071c40);border:1px solid #153b65;box-shadow:0 2px 5px #0008}
+.thumb:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,#49c8ff88,transparent 28%),repeating-linear-gradient(120deg,transparent 0 15px,#ffffff0b 16px 17px)}
+.thumb .course{position:absolute;left:9px;top:9px;text-align:left;font-size:6px;font-weight:900;color:#fff;text-shadow:1px 2px 3px #000}
+.thumb .maintext{position:absolute;left:9px;bottom:19px;text-align:left;font-weight:1000;font-style:italic;font-size:23px;line-height:.92;letter-spacing:-1px;color:#fff;text-shadow:2px 3px 0 #08204a,3px 4px 4px #000}
+.thumb .maintext em{font-style:italic;color:#ffbf00;display:block}
+.thumb .camgraphic{position:absolute;right:12px;top:30px;width:76px;height:47px;border-radius:12px 23px 23px 12px;background:linear-gradient(140deg,#fff,#91a6b8);transform:rotate(-12deg);box-shadow:0 8px 12px #0009}
+.thumb .camgraphic:after{content:"";position:absolute;right:5px;top:9px;width:29px;height:29px;border-radius:50%;background:radial-gradient(circle,#071321 20%,#2d88a8 30% 46%,#152c45 50% 67%,#e9f1f8 70%)}
+.thumb .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#ffbd00;color:#10151b;display:flex;align-items:center;justify-content:center;font-size:11px;z-index:2;box-shadow:0 2px 5px #0008}
+.thumb .lesson-tag{position:absolute;right:7px;bottom:7px;font-size:5px;color:#dceeff;letter-spacing:1px}
+.complete{background:#111923;border:1px solid #222d39;color:#8e9bab;border-radius:4px;padding:5px 10px;font-size:5px;font-weight:900;letter-spacing:.4px;margin-top:8px;cursor:pointer}
+.complete.done{color:#ffca28;border-color:#8d6a0b}
+.section-break{height:1px;background:#142033;width:224px;margin:20px auto}
+.footer{background:#123f82;margin-top:30px;padding:25px 10px 27px}
+.footer-logo{width:48px;height:42px;border:1px solid #ffbd00;border-radius:7px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:900}
+.footer strong{font-size:11px}
+.footer p{font-size:7px;color:#c3d3e8;line-height:1.8;margin:17px 0 0}
+@media(min-width:600px){main{max-width:1100px}}
+
+.lesson-title{min-height:30px}.thumb{cursor:pointer}.thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.thumb.playing{background:#02060b}.thumb.playing:before,.thumb.playing .course,.thumb.playing .maintext,.thumb.playing .camgraphic,.thumb.playing .play,.thumb.playing .lesson-tag{display:none}.lesson{margin:0 0 21px}.complete{font-size:10px;padding:8px 12px}.module{width:min(100% - 20px,320px)}.thumb{width:100%;height:auto;aspect-ratio:16/9}.lesson-title{max-width:300px;font-size:12px}.module h2{font-size:14px}.progress{width:min(100% - 24px,280px)}.lesson-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.watch{background:#ffb900;color:#10151b;border:0;border-radius:4px;padding:8px 12px;font-size:10px;font-weight:900;cursor:pointer}.open-youtube{color:#ffca28;font-size:10px;font-weight:900;text-decoration:none;display:inline-block;margin-top:7px}.lesson-note{font-size:9px;color:#9eacbd;margin-top:5px}
+@media(min-width:600px){main{max-width:1100px}.module{width:100%}.thumb{width:100%}.lesson-title{font-size:14px}}
+
+.pix-card{width:min(100%,672px);margin:14px auto 20px;padding:34px 32px 31px;background:#121820;border:1px solid #303945;border-radius:23px;text-align:center;color:#f5f7fa}
+.pix-card h2{font-size:20px;letter-spacing:1px;margin:0 0 27px;font-weight:900}
+.pix-key{max-width:448px;margin:0 auto 16px;padding:17px 16px;background:#090e14;border-radius:16px;display:flex;align-items:center;justify-content:space-between;text-align:left;gap:12px}
+.pix-key small,.pix-meta small{display:block;color:#929baa;font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:6px}
+.pix-key strong{display:block;color:#ffc000;font-size:18px}
+.pix-key button{background:#ffbd00;border:0;border-radius:14px;padding:10px 17px;font-weight:900;letter-spacing:1px;color:#111;cursor:pointer;white-space:nowrap}
+.pix-meta{max-width:448px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pix-meta div{background:#0e141c;border:1px solid #252d37;border-radius:13px;padding:13px 8px}
+.pix-meta small{font-size:9px;margin-bottom:6px}
+.pix-meta b{font-size:13px}
+.sector{font-size:10px;font-weight:800;letter-spacing:.8px;color:#9ba6b4;margin:17px 0 31px}
+.pix-card hr{max-width:448px;border:0;border-top:1px solid #303945;margin:0 auto 24px}
+.pix-warning{max-width:445px;margin:0 auto 17px;color:#c5cbd4;font-size:13px;line-height:1.7;font-style:italic}
+.pix-warning b{color:#ffc000}
+.pix-instruction{max-width:445px;margin:0 auto 32px;color:#ffc000;font-size:13px;line-height:1.7;font-weight:700}
+.pay-app{width:200px;height:136px;margin:0 auto;background:#1c211d;border:1px solid #40371b;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#9a7800;gap:7px}
+.pay-app span{font-size:42px;line-height:1}
+.pay-app b{font-size:10px;line-height:1.4}
+@media(max-width:520px){.pix-card{padding:25px 14px;border-radius:17px}.pix-card h2{font-size:16px}.pix-key{padding:13px 11px}.pix-key strong{font-size:16px}.pix-key button{padding:9px 11px;font-size:10px}.pix-meta{gap:8px}.pix-meta b{font-size:11px}.pix-warning,.pix-instruction{font-size:12px}}
+@media(max-width:520px){.pix-card{padding:22px 12px}.pix-card h2{font-size:15px}.pix-key{padding:12px 10px}.pix-key strong{font-size:15px}.pix-key button{font-size:10px;padding:8px 10px}.pix-meta b{font-size:10px}.pix-warning,.pix-instruction{font-size:11px}}
+
+/* AJUSTES RESPONSIVOS: celular, notebook e desktop */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{min-width:320px;overflow-x:hidden;text-align:center}
+main{width:min(100% - 36px,1180px);max-width:1180px;margin:0 auto;padding:0 0 28px}
+.topbar{height:48px;padding:6px 16px}
+.logo{width:64px;height:34px;font-size:10px;border-radius:5px}
+.hero{padding:28px 0 0}
+.eyebrow{font-size:12px;letter-spacing:1.5px;margin-bottom:12px}
+h1{font-size:clamp(25px,3.2vw,42px);line-height:1.12;max-width:820px;margin:0 auto 14px}
+.subline{font-size:clamp(13px,1.3vw,16px);line-height:1.55;max-width:720px;margin:0 auto 22px}
+.pills{gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.pill{font-size:12px;padding:10px 16px;cursor:pointer}
+.pix-card{width:min(100%,760px);margin:22px auto 30px;padding:34px 28px 30px}
+.pix-card h2{font-size:clamp(18px,2vw,23px)}
+.pix-key{max-width:560px}
+.pix-meta{max-width:560px}
+.progress{width:min(100%,760px);padding:18px 20px;margin:0 auto 38px}
+.progress-title{font-size:14px}
+.progress-sub{font-size:11px}
+.percent{font-size:18px}
+.bar{height:7px}
+.module{width:100%;max-width:1100px;margin:0 auto 42px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 24px;align-items:start}
+.module-dot,.module h2{grid-column:1/-1}
+.module-dot{width:32px;height:32px;font-size:14px;margin:0 auto -10px}
+.module h2{font-size:clamp(17px,2vw,22px);margin:0 0 2px;line-height:1.25}
+.lesson{width:100%;min-width:0;margin:0;padding:14px;background:#0c1420;border:1px solid #1c2b3d;border-radius:12px}
+.lesson-title{font-size:clamp(13px,1.25vw,16px);line-height:1.35;min-height:44px;max-width:100%;margin:0 auto 10px}
+.thumb{width:100%;height:auto;aspect-ratio:16/9;border-radius:9px}
+.thumb .course{font-size:10px;left:13px;top:12px}
+.thumb .maintext{font-size:clamp(22px,3vw,34px);left:14px;bottom:24px}
+.thumb .camgraphic{width:18%;height:35%;right:8%;top:28%}
+.thumb .play{width:44px;height:44px;font-size:17px}
+.thumb .lesson-tag{font-size:9px}
+.lesson-actions{gap:8px;margin-top:10px}
+.complete,.watch{font-size:11px;padding:10px 13px;border-radius:7px}
+.open-youtube{font-size:11px;margin-top:10px}
+.lesson-note{font-size:11px;line-height:1.4}
+.section-break{width:100%;max-width:1100px}
+.footer{margin-top:34px;padding:34px 18px}
+.footer-logo{width:64px;height:54px;font-size:9px}
+.footer strong{font-size:15px}
+.footer p{font-size:12px}
+@media(max-width:700px){
+ main{width:min(100% - 28px,560px);padding-bottom:18px}
+ .topbar{height:42px}
+ .hero{padding-top:22px}
+ .eyebrow{font-size:10px}
+ h1{font-size:clamp(23px,6vw,32px);max-width:520px}
+ .subline{font-size:13px;max-width:500px}
+ .pills{gap:7px}.pill{font-size:10px;padding:9px 11px}
+ .pix-card{padding:24px 14px 22px;margin:18px auto 24px;border-radius:18px}
+ .pix-card h2{font-size:16px;line-height:1.25;margin-bottom:20px}
+ .pix-key{padding:13px 11px;gap:8px}.pix-key small{font-size:9px}.pix-key strong{font-size:15px}.pix-key button{font-size:10px;padding:10px 11px}
+ .pix-meta{gap:8px}.pix-meta div{padding:12px 6px}.pix-meta b{font-size:11px}
+ .sector{font-size:9px;margin:14px 0 22px}.pix-warning,.pix-instruction{font-size:11px;line-height:1.6}
+ .pay-app{width:160px;height:110px}
+ .progress{padding:14px;margin-bottom:30px}
+ .module{grid-template-columns:1fr;gap:15px;margin-bottom:34px}
+ .module-dot,.module h2{grid-column:1}
+ .module h2{font-size:17px;margin-bottom:2px}
+ .lesson{padding:11px;border-radius:10px}
+ .lesson-title{font-size:13px;min-height:0;margin-bottom:9px}
+ .thumb .course{font-size:8px}.thumb .maintext{font-size:26px}.thumb .play{width:38px;height:38px}
+ .complete,.watch{font-size:10px;padding:9px 10px}
+ .open-youtube,.lesson-note{font-size:10px}
+}
+@media(min-width:701px) and (max-width:980px){main{width:min(100% - 32px,900px)}.module{gap:16px}.lesson{padding:11px}}
+@media(max-width:380px){main{width:calc(100% - 20px)}.pix-key strong{font-size:13px}.pix-key button{padding:9px 8px}.lesson-actions{gap:5px}.complete,.watch{font-size:9px;padding:8px 7px}}
+
+
+/* Ajustes responsivos para celular, notebook e desktop */
+main{padding-left:14px;padding-right:14px}
+.pix-card{width:100%;max-width:672px}
+@media(max-width:599px){
+  main{width:100%;padding-left:12px;padding-right:12px}
+  .pix-card{padding:24px 16px;border-radius:18px}
+  .pix-card h2{font-size:18px;line-height:1.25}
+  .pix-key{flex-wrap:wrap;padding:14px;}
+  .pix-key strong{font-size:17px;overflow-wrap:anywhere}
+  .module{width:100%;max-width:520px}
+  .progress{width:100%;max-width:520px}
+  .lesson-title{max-width:100%;font-size:13px}
+  .thumb{width:100%;height:auto;aspect-ratio:16/9}
+  .topbar{height:30px}
+  .eyebrow,.subline{font-size:11px}
+  .pill{font-size:10px}
+  .access-card{width:min(100%,360px)}
+}
+@media(min-width:600px){
+  body{text-align:center}
+  main{width:min(100% - 48px,1100px)}
+  .module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:start}
+  .module{width:100%;max-width:none;margin:0 auto 28px}
+  .thumb{width:100%;height:auto;aspect-ratio:16/9}
+  .lesson-title{max-width:100%;font-size:14px;min-height:38px}
+  .progress{width:min(100%,560px)}
+  .module h2{font-size:18px}
+  .pix-card{margin-top:22px}
+}
+@media(min-width:1000px){.module-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}}
+
+</style></head><body>
+<div class="topbar"><div class="logo">PORTÃO<br>DO ZERO</div></div>
+<main>
+<section class="hero"><div class="eyebrow">SEJA BEM-VINDO AO TREINAMENTO!</div>
+<h1>Bem-vindo ao <span>Guia de Portão Eletrônico</span> do Zero!<br>Agora é hora de transformar conhecimento em novas habilidades.</h1>
+<p class="subline">Estude no seu ritmo e conheça os fundamentos de instalação, configuração e manutenção de portões eletrônicos.</p>
+<div class="pills"><button class="pill" onclick="document.getElementById('mod1').scrollIntoView({behavior:'smooth'})">⚙️ PARTE 1 - FUNDAMENTOS</button><button class="pill blue" onclick="document.getElementById('mod3').scrollIntoView({behavior:'smooth'})">🔧 CENTRAIS E LIGAÇÕES</button></div>
+<section class="pix-card">
+<h2>💰 DADOS PARA PAGAMENTO VIA PIX</h2>
+<div class="pix-key"><div><small>CHAVE PIX (CELULAR)</small><strong>86994198195</strong></div><button type="button" id="copyPix">▢ COPIAR</button></div>
+<div class="pix-meta"><div><small>BANCO</small><b>CLOUDWALK IP LTDA</b></div><div><small>NOME</small><b>Wanderson Emanuel</b></div></div>
+<div class="sector">(SETOR FINANCEIRO)</div><hr>
+<p class="pix-warning">⚠️ A sua matrícula tem validade de <b>2h</b>. Caso o pagamento não seja confirmado, o acesso à plataforma poderá ser suspenso.</p>
+<p class="pix-instruction">Após realizar o pagamento, envie o comprovante e seu nome completo pelo WhatsApp em que você foi atendido.</p>
+<div class="pay-app"><span>▯</span><b>PAGUE COM<br>SEU APP</b></div>
+</section></section>
+<section class="progress"><div class="progress-title">♧ SEU PROGRESSO DE ESTUDO</div><div class="progress-sub">Acompanhe seu desenvolvimento no treinamento</div><div class="percent" id="pct">0%</div><div class="bar"><span id="barfill"></span></div><div class="progress-sub" id="progress-label">0 de 28 aulas concluídas</div></section>
+<div id="course"></div>
+
+
+</main>
+<footer class="footer"><div class="footer-logo">PORTÃO<br>DO ZERO</div><strong>GUIA DE PORTÃO ELETRÔNICO DO ZERO</strong><p>© 2026 Guia de Portão Eletrônico do Zero. Todos os direitos reservados.<br>Instrutor: Wanderson Emanuel</p></footer>
+<script>
+const lessons=[{"title": "Conexão do motor, capacitor e fiação: montagem e manutenção", "id": "db05231c-72e1-447f-8126-fe7eaf8e4218"}, {"title": "Central Acton AC4: funções e programações explicadas", "id": "8a0820a1-7e86-4f02-b34a-11024e50199b"}, {"title": "Princípios de funcionamento e dicas técnicas", "id": "5209d947-0fc9-44bc-9a2e-1be45b4a13b0"}, {"title": "Parte mecânica do motor deslizante", "id": "26952712-a4cb-4988-bf77-2b285b824dda"}, {"title": "Como funciona o portão eletrônico", "id": "4cc0d47b-675a-4f99-8a7c-926cdeb1fb0f"}, {"title": "Portões deslizantes: funcionamento e características", "id": "e6846ee6-b41c-43fd-93eb-c346808c91d4"}, {"title": "Siglas e conectores das centrais eletrônicas", "id": "5109a990-0fd6-4a41-a9df-d759d9656521"}, {"title": "Modelos de portões basculantes", "id": "269cad2a-3a93-43ae-ba2b-025fec222e1c"}, {"title": "Parte mecânica do motor de portão basculante", "id": "def20f7d-dd65-4eda-9c80-e51ff60b0d81"}, {"title": "Principais peças do motor basculante", "id": "f27cf2f6-5450-454a-9dc5-acc6155a4dcf"}, {"title": "Sistema manual do portão deslizante", "id": "c711771e-6f43-4fde-9303-3fabeae75cc9"}, {"title": "Central de comando: aula 9", "id": "714bbce9-59b8-43b6-a989-baa3dd26d74c"}, {"title": "Ligando a central de comando no motor", "id": "c1277a3a-9494-489c-a0bb-c7628b9b1230"}, {"title": "Conexões completas da central PPA", "id": "5eb8217d-3cbb-4ce2-b40f-2ae1a819e6d2"}, {"title": "Opcional de lâmpada e trava da central Acton", "id": "62d7a099-5429-4884-a74e-568a0bb545b1"}, {"title": "Finais de curso: testes e identificação de defeitos", "id": "1d9124f7-a559-4ac0-8125-7254d05a9758"}, {"title": "Qual é o portão eletrônico mais eficiente e durável?", "id": "01e3d1c4-99e6-49f7-a25d-22d00b1b6420"}, {"title": "Conexões e programações da central AC4 Fit UP Acton", "id": "71e39f32-cc87-4bb3-955b-6b605d8ce9d5"}, {"title": "Sensor Hall: por que é utilizado?", "id": "ed3fba79-a038-47f0-971c-60b2feb2887f"}, {"title": "Programações da central de portão eletrônico", "id": "b4053c83-cb71-46c0-baf2-d31a92a81608"}, {"title": "Como programar controle na PPA Facility universal", "id": "bfcf90ba-f5f5-4e89-9caf-c70774aa2834"}, {"title": "top 5 motores para portão deslizante: análise", "id": "299b8d09-ad35-4761-966e-8035c561ef1b"}, {"title": "Como ligar uma trava solenoide: esquemas de ligação", "id": "ec733bd0-52c5-478d-b359-ce6a5c43b14b"}, {"title": "Você precisa entender isso para ser técnico de segurança", "id": "353cce23-3a4d-433c-843d-353512829643"}, {"title": "Freio eletrônico e mecânico do motor de portão", "id": "edccfce0-a42f-44b7-8aca-6f055583b5e7"}, {"title": "Curso avançado de portão eletrônico: aula 2", "id": "d00b9a33-73bc-4d77-a6d2-40f65b010f6d"}, {"title": "Defeitos mecânicos comuns do motor basculante", "id": "a8de7fd5-d8b6-4be8-b3d3-b9ebbfdf76e6"}, {"title": "Como destravar portão eletrônico travado", "id": "c7f7944c-54dd-4271-ad5f-9875eea4d298"}];
+const modules=[["01", "Fundamentos e funcionamento", [2, 4, 16]], ["02", "Tipos de portões e mecânica", [3, 5, 7, 8, 9, 10, 24, 26, 27]], ["03", "Instalação e montagem", [0, 12]], ["04", "Centrais de comando e conexões", [6, 11, 13, 14, 17]], ["05", "Programação e controles", [1, 19, 20]], ["06", "Sensores e componentes auxiliares", [15, 18, 22]], ["07", "Diagnóstico e conteúdos complementares", [21, 23, 25]]];
+const copyPixButton=document.getElementById('copyPix');
+async function copyPixKey(){
+  const pixKey='86994198195';
+  let copied=false;
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(pixKey);
+      copied=true;
+    }
+  }catch(error){ copied=false; }
+  if(!copied){
+    const temp=document.createElement('textarea');
+    temp.value=pixKey;
+    temp.setAttribute('readonly','');
+    temp.style.position='fixed';
+    temp.style.left='-9999px';
+    temp.style.top='0';
+    document.body.appendChild(temp);
+    temp.focus();
+    temp.select();
+    temp.setSelectionRange(0,temp.value.length);
+    try{ copied=document.execCommand('copy'); }catch(error){ copied=false; }
+    document.body.removeChild(temp);
+  }
+  if(copied){
+    const original='▢ COPIAR';
+    copyPixButton.textContent='✓ PIX COPIADO!';
+    copyPixButton.setAttribute('aria-live','polite');
+    copyPixButton.disabled=true;
+    setTimeout(()=>{copyPixButton.textContent=original;copyPixButton.disabled=false;},2200);
+  }else{
+    copyPixButton.textContent='SELECIONE A CHAVE';
+    const range=document.createRange();
+    const keyElement=document.querySelector('.pix-key strong');
+    if(keyElement){range.selectNodeContents(keyElement);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);}
+    setTimeout(()=>{copyPixButton.textContent='▢ COPIAR';},2500);
+  }
+}
+copyPixButton.addEventListener('click',copyPixKey);
+const STORE='gpez_old_visual_progress_v3';let completed=new Set();try{completed=new Set(JSON.parse(localStorage.getItem(STORE)||'[]'))}catch(e){}
+const root=document.getElementById('course');const total=lessons.length;
+function update(){const n=completed.size,p=Math.round(n/total*100);document.getElementById('pct').textContent=p+'%';document.getElementById('barfill').style.width=p+'%';document.getElementById('progress-label').textContent=n+' de '+total+' aulas concluídas'}
+modules.forEach(([num,title,ids],mi)=>{const section=document.createElement('section');section.className='module';section.id='mod'+(mi+1);section.innerHTML=`<div class="module-dot">${num}</div><h2>${title}</h2>`;ids.forEach((idx)=>{const l=lessons[idx];if(!l)return;const article=document.createElement('article');article.className='lesson';article.innerHTML=`<div class="lesson-title">${String(idx+1).padStart(2,'0')}. ${l.title}</div><div class="thumb" role="button" tabindex="0" aria-label="Assistir ${l.title}"><div class="course">GUIA DE<br>PORTÃO ELETRÔNICO</div><div class="camgraphic"></div><div class="maintext">AULAS DE<em>PORTÃO</em></div><div class="play">▶</div><div class="lesson-tag">VIDEOAULA</div></div><div class="lesson-actions"><button class="complete ${completed.has(idx)?'done':''}" type="button">${completed.has(idx)?'✓ AULA CONCLUÍDA':'ASSISTIR AULA'}</button><button class="complete mark ${completed.has(idx)?'done':''}" type="button">${completed.has(idx)?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA'}</button></div><a class="open-youtube" href="https://iframe.mediadelivery.net/embed/807012/${l.id}?autoplay=false&muted=false&responsive=true" target="_blank" rel="noopener">Se o vídeo não carregar, abrir o vídeo ↗</a><div class="lesson-note">O vídeo é carregado quando você toca na imagem.</div>`;
+const thumb=article.querySelector('.thumb'),watch=article.querySelector('.complete'),mark=article.querySelector('.mark');function play(){if(thumb.classList.contains('playing'))return;thumb.classList.add('playing');const iframe=document.createElement('iframe');iframe.src='https://iframe.mediadelivery.net/embed/807012/'+l.id+'?autoplay=false&loop=false&muted=false&preload=false&responsive=true';iframe.title=l.title;iframe.loading='lazy';iframe.allow='accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;';iframe.referrerPolicy='strict-origin-when-cross-origin';iframe.allowFullscreen=true;thumb.appendChild(iframe);watch.textContent='VÍDEO ABERTO';}
+thumb.addEventListener('click',play);thumb.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();play()}});watch.addEventListener('click',play);mark.addEventListener('click',()=>{if(completed.has(idx))completed.delete(idx);else completed.add(idx);localStorage.setItem(STORE,JSON.stringify([...completed]));const done=completed.has(idx);mark.classList.toggle('done',done);watch.classList.toggle('done',done);mark.textContent=done?'✓ CONCLUÍDA':'MARCAR CONCLUÍDA';update()});section.appendChild(article)});root.appendChild(section)});update();
+</script></body></html>
